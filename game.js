@@ -33,6 +33,7 @@ Game.game.prototype = {
         this.spawnZombie();
         bullets = game.add.group();
         bullets.enableBody = true;
+        hearts = game.add.group();
         cursors = game.input.keyboard.createCursorKeys();
         pointer = game.add.sprite(game.input.activePointer.position.x,game.input.activePointer.position.y,'aim');
         pointer.anchor.setTo(0.5,0.5);
@@ -82,6 +83,11 @@ Game.game.prototype = {
             ennemy.rotation = game.physics.arcade.angleToXY(ennemy,player.position.x,player.position.y);
             game.physics.arcade.moveToObject(ennemy,player,70);
         },this);
+        hearts.removeAll();
+        for(var i = 0; i < player.health; i++)
+        {
+            hearts.create(20 + i * 50,50,'heart');    
+        }
         pointer.position = game.input.activePointer.position;
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
@@ -143,6 +149,7 @@ Game.boot.prototype = {
         game.load.image('zombie','assets/zombie.png');
         game.load.image('box','assets/box.png');
         game.load.image('aim','assets/aim.png');
+        game.load.image('heart','assets/heart.png');
         game.load.audio('hurt','assets/sounds/hurt.wav');
         game.load.audio('powerup','assets/sounds/powerup.wav');
         game.load.audio('shoot','assets/sounds/shoot.wav');
